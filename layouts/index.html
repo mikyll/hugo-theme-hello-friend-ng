@@ -1,67 +1,27 @@
 {{ define "body" }}
-  <body class="{{ if .Site.Params.backgroundImage }} background-image" style="background-image: url('{{ .Site.Params.backgroundImage }}');" {{ else }}"{{ end }}>
+  <body class="{{ if .Site.Params.backgroundImage }} background-image"
+      style="background-image: url('{{ .Site.Params.backgroundImage }}');" {{ else }}"{{ end }}>
 {{ end }}
 
 {{ define "main" }}
   <main aria-role="main">
-    <style>
-      .button {
-        display: inline-block;
-        padding: 5px 15px;
-        font-size: 18px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 9px #AAA;
-      }
+    <div>
+      {{ if .Site.Params.Portrait.Path }}
+        <img src="{{ .Site.Params.Portrait.Path }}"
+            class="circle"
+            alt="{{ .Site.Params.Portrait.Alt }}"
+            style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
+      {{ end }}
 
-      .button:hover {background-color: #888}
+      <h1>{{ .Site.Title }}</h1>
 
-      .button:active {
-        background-color: #888;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-    </style>
-      <div class="welcome" style="display: flex; flex-wrap: wrap; ">
-        <!--{{ if .Site.Params.Portrait.Path }}
-           <img src="{{ .Site.Params.Portrait.Path }}" class="circle" alt="{{ .Site.Params.Portrait.Alt }}" style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
-        {{ end }}
+      {{ partial "subtitle.html" . }}
 
-        <h1>{{ .Site.Title }}</h1>
-        <p>{{ .Site.Params.homeSubtitle }}</p>
-        
-        {{- with .Site.Params.social }}
-            <div>
-                {{ partial "social-icons.html" . }}
-            </div>
-        {{- end }}-->
-        
-        <div class="welcome-text" style="width: 55%; text-align: left; align-self: center; padding: 0px 30px 0px 50px;">
-          <h1>{{ .Site.Params.WelcomeMessage | safeHTML }}</h1>
-
-          <p style="text-align: justify; padding-right: 15%;">{{ .Site.Params.homeSubtitle | safeHTML }}</p>
-          
-          <a href="about/"><button class="button">About</button></a>
-          &nbsp;
-          <a href="/"><button class="button">Resume</button></a>
-          <br/>
-          <br/>
-
-          {{- with .Site.Params.social }}
-              <div>
-                  {{ partial "social-icons.html" . }}
-              </div>
-          {{- end }}
+      {{- with .Site.Params.social }}
+        <div>
+          {{ partial "social-icons.html" . }}
         </div>
-        <div class="welcome-avatar" style="width: 45%; padding: 0px 50px 0px 0px; align-self: center;" >
-          {{ if .Site.Params.Portrait.Path }}
-            <img src="{{ .Site.Params.Portrait.Path }}" style="border-radius: 50%; box-shadow: 0px 0px 0px 3px currentColor;"/>
-          {{ end }}
-        </div>
-      </div>
+      {{- end }}
+    </div>
   </main>
 {{ end }}
